@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JUVNLS — Client work</title>
+<meta name="description" content="Short-form video edits we have made for our clients. Podcasts and raw footage, turned into clips with motion.">
+<link rel="icon" href="assets/logo-dark.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@500&family=Host+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=7">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="nav">
+  <a class="logo" href="#top" aria-label="JUVNLS home"><img src="assets/logo-dark.svg" alt=""><span>JUVNLS</span></a>
+  <div class="nav-actions">
+    <a class="btn btn-dark btn-sm" href="#contact">
+      <span class="roll"><span>Send a brief</span><span>Send a brief</span></span>
+      <span class="plate plate-light"><i class="arr arr-dark"></i></span>
+    </a>
+    <button class="menu-btn" aria-label="Open menu"><b></b><b></b></button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="wrap hero frame">
+  <div class="hero-copy">
+    <div class="badge badge-live"><i class="dot"></i>TALKING HEADS / SHORT FORM</div>
+    <h1>Creating Videos</h1>
+    <p class="lede">We turn podcasts and raw footages into short form<br>clips with motion. Curated to fit your studio’s brief.</p>
+    <div class="hero-btns">
+      <a class="btn btn-dark" href="#contact">
+        <span class="roll"><span>Have a Chat</span><span>Have a Chat</span></span>
+        <span class="plate plate-accent"><i class="arr arr-white"></i></span>
+      </a>
+      <a class="btn btn-ghost" href="#work">
+        <span class="roll"><span>See the approach</span><span>See the approach</span></span>
+      </a>
+    </div>
+    <div class="rating">
+      <div class="stars"><img src="assets/star.svg" alt=""><img src="assets/star.svg" alt=""><img src="assets/star.svg" alt=""><img src="assets/star.svg" alt=""><img src="assets/star.svg" alt=""></div>
+      <span class="eyebrow">CUT WITH TASTE. BUILT WITH PURPOSE.</span>
+    </div>
+  </div>
+
+  <div class="reel"><div class="reel-track" id="reel"></div></div>
+
+  <div class="clients">
+    <span class="eyebrow">TRUSTED BY STUDIOS, CREATORS AND BRANDS</span>
+    <div class="logos">
+      <div><img class="lg lg-wispr" src="assets/client-wispr.svg" alt="Wispr Flow"></div>
+      <div><img class="lg lg-wl" src="assets/client-worklouder.svg" alt="Work Louder"></div>
+      <div><span class="lg mm" aria-label="Metro Media House"><i class="mark"></i><b>Metro Media House</b></span></div>
+      <div><img class="lg lg-cordia" src="assets/client-cordia.svg" alt="Cordia Studio"></div>
+      <div><img class="lg lg-bb" src="assets/client-blackbox.svg" alt="Blackbox AI"></div>
+      <div><img class="lg lg-simba" src="assets/client-simba.png" alt="Simba Uproar"></div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="wrap section" id="work">
+  <div class="head">
+    <div class="head-left">
+      <div class="badge badge-idx"><em>/</em> 001 <em>/</em> CLIENT WORK</div>
+      <h2>Edits we’ve made for clients.</h2>
+    </div>
+    <div class="filters count">08 <small>videos · press play</small></div>
+  </div>
+  <div class="grid frame" id="grid"></div>
+</section>
+
+<!-- STATS TICKER -->
+<section class="stats" aria-label="Stats">
+  <div class="stats-track" id="stats"></div>
+</section>
+
+<!-- WHY -->
+<section class="wrap section">
+  <div class="head head-split">
+    <div class="head-left">
+      <div class="badge badge-idx"><em>/</em> 002 <em>/</em> WHY JUVNLS</div>
+      <h2>Every second earns its place.</h2>
+    </div>
+    <p class="head-right">We find the line. Cut the drag. Give the story a<br>rhythm. That’s how every client edit above was made:<br>on brand, on budget and on deadline.</p>
+  </div>
+
+  <div class="table frame" id="table">
+    <div class="t-row t-head">
+      <div class="c c0"></div>
+      <div class="c c1"><span class="eyebrow">FREELANCERS</span></div>
+      <div class="c c2"><span class="eyebrow">AGENCIES</span></div>
+      <div class="c c3 top"><a class="logo logo-light" href="#top"><img src="assets/logo-light.svg" alt=""><span>THE CUT</span></a></div>
+    </div>
+    <div id="rows"></div>
+    <div class="t-row t-foot">
+      <div class="c c0"></div><div class="c c1"></div><div class="c c2"></div>
+      <div class="c c3 bottom">
+        <a class="btn btn-light btn-block" href="#contact">
+          <span class="roll"><span>Send a brief</span><span>Send a brief</span></span>
+          <span class="plate plate-dark"><i class="arr arr-light"></i></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="wrap section section-gap" id="faq">
+  <div class="head">
+    <div class="head-left">
+      <div class="badge badge-idx"><em>/</em> 003 <em>/</em> FAQ</div>
+      <h2>The practical stuff.</h2>
+    </div>
+  </div>
+  <div class="faq-grid frame">
+    <div class="faq" id="faq-list"></div>
+    <aside class="help">
+      <div class="help-top">
+        <div class="media slot" data-slot="faq" data-poster="assets/faq-bg.png"><div class="live"><i class="dot sm"></i>TALK TO THE PEOPLE MAKING IT</div></div>
+        <h3>Got a cut in mind?</h3>
+        <p>Tell us the story, the<br>format and the deadline.</p>
+      </div>
+      <div class="help-foot">
+        <a class="btn btn-dark btn-block" href="#contact">
+          <span class="roll"><span>Send a brief</span><span>Send a brief</span></span>
+          <span class="plate plate-light"><i class="arr arr-dark"></i></span>
+        </a>
+        <div class="mail-row"><span class="mail-l">CONTACT</span><span class="eyebrow mono">CONTACT DETAILS PENDING</span></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="wrap section section-gap" id="contact">
+  <div class="contact frame">
+    <div class="contact-l">
+      <div class="badge badge-live"><i class="dot"></i>WORK WITH US</div>
+      <h2>Got footage?<br>Make it move.</h2>
+      <p class="sub">Tell us who’s speaking, what needs to land and when it goes live. We’ll reply with how we’d cut it.</p>
+      <div class="mini-cards">
+        <div class="mini slot" data-slot="contact-story"><span>STORY</span></div>
+        <div class="mini mini-up slot" data-slot="contact-pace"><span>PACE</span></div>
+        <div class="mini slot" data-slot="contact-motion"><span>MOTION</span></div>
+      </div>
+    </div>
+    <form class="form" id="brief" novalidate>
+      <div class="f-row">
+        <label><span class="lab">YOUR NAME</span><input type="text" name="name" placeholder="Your name"></label>
+        <label><span class="lab">WORK EMAIL</span><input type="email" name="email" placeholder="you@example.com"></label>
+      </div>
+      <div class="f-row">
+        <label><span class="lab">STUDIO OR TEAM</span><input type="text" name="team" placeholder="Studio or team"></label>
+        <label><span class="lab">WHAT ARE YOU MAKING?</span>
+          <span class="select"><select name="kind"><option>One piece</option><option>A series</option><option>Ongoing retainer</option></select></span>
+        </label>
+      </div>
+      <label class="f-full"><span class="lab">THE BRIEF <em>OPTIONAL</em></span><textarea name="brief" placeholder="Tell us about the brief"></textarea></label>
+      <button class="btn btn-dark btn-block" type="submit">
+        <span class="roll"><span>Send the brief</span><span>Send the brief</span></span>
+        <span class="plate plate-light"><i class="arr arr-dark"></i></span>
+      </button>
+      <p class="note eyebrow mono">WE’LL READ IT WITH CARE.</p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="wrap">
+  <div class="foot frame">
+    <div class="foot-brand">
+      <a class="logo" href="#top"><img src="assets/logo-dark.svg" alt=""><span>JUVNLS</span></a>
+      <h3>Talking heads with taste.</h3>
+      <p>A creative studio for short-<br>form work with a point of view.</p>
+      <div class="socials">
+        <a href="#" aria-label="X"><img src="assets/glyph-1.svg" alt=""></a>
+        <a href="#" aria-label="Instagram"><img src="assets/glyph-2.svg" alt=""></a>
+        <a href="#" aria-label="Social"><img src="assets/glyph-3.svg" alt=""></a>
+        <a href="#" aria-label="Social"><img src="assets/glyph-4.svg" alt=""></a>
+      </div>
+    </div>
+    <nav class="foot-col"><h4>Navigation</h4>
+      <a href="#work">Client work</a><a href="#faq">FAQ</a><a href="#contact">Start a project</a>
+    </nav>
+    <nav class="foot-col"><h4>Company</h4>
+      <a href="#">About</a><a href="#">Reviews</a><a href="#contact">Contact</a>
+    </nav>
+    <div class="foot-card">
+      <h3>Got a brief? Let’s talk.</h3>
+      <p>Tell us the story, the audience and the deadline.</p>
+      <div class="email-pill"><span>CONTACT DETAILS PENDING</span><em class="eyebrow mono">Email</em></div>
+      <a class="btn btn-dark btn-block" href="#contact">
+        <span class="roll"><span>Send a brief</span><span>Send a brief</span></span>
+        <span class="plate plate-light"><i class="arr arr-dark"></i></span>
+      </a>
+    </div>
+  </div>
+  <div class="bottom-bar">
+    <span>© 2026 JUVNLS. All rights reserved.</span>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Service</a>
+    <span>Designed By <b>Marso</b></span>
+  </div>
+</footer>
+
+<script src="videos.js?v=3"></script>
+<script src="main.js?v=3"></script>
+</body>
+</html>
