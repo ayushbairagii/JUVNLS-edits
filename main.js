@@ -13,12 +13,13 @@
     ['000', 'Deadlines missed', 'across clients']
   ];
   var ROWS = [
-    ['Story', 'Long take', 'Find the line', 'Clear point'],
-    ['Opening', 'Slow start', 'Lead with tension', 'Strong entry'],
-    ['Pace', 'Dead air', 'Cut for rhythm', 'Feels alive'],
-    ['Motion', 'Static frame', 'Move with purpose', 'More character'],
-    ['Brand', 'Generic look', 'Use your language', 'Feels yours'],
-    ['Versions', 'One long cut', 'Plan the outputs', 'Ready to use']
+    ['Turnaround', 'Depends on one person’s schedule', 'A studio team, so deadlines are held'],
+    ['Accountability', 'One person, no backup', 'We own the result and fix anything that slips'],
+    ['Style', 'One look reused for everyone', 'Every piece styled for your own audience'],
+    ['Storytelling', 'Cuts what’s in front of them', 'Years of craft, so we know what makes a video flow'],
+    ['Consistency', 'Quality shifts with their workload', 'The same standard on every video, across a whole series'],
+    ['Scale', 'Capped by one person’s hours', 'We can take on a series or a busy month without slowing down'],
+    ['Communication', 'Hard to reach, replies when they can', 'One clear point of contact and regular updates']
   ];
   var FAQ = [
     ['What footage do you take?', 'Interviews, podcasts and direct-to-camera<br>recordings. We find the story in the raw material.'],
@@ -42,7 +43,11 @@
     el.setAttribute('tabindex', '0');
     el.setAttribute('aria-label', 'Play video');
     el.innerHTML =
-      '<span class="play"><img src="assets/play-white.svg" alt=""></span>' +
+      '<span class="play"><img class="i-play" src="assets/play-white.svg" alt=""><i class="i-pause"><b></b><b></b></i></span>' +
+      '<button class="snd" type="button" aria-label="Turn sound on">' +
+        '<svg class="s-off" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>' +
+        '<svg class="s-on" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z"/><path d="M15.5 9a4.5 4.5 0 010 6M18 6.5a8 8 0 010 11"/></svg>' +
+      '</button>' +
       '<span class="tc">0:00 / 0:00</span><span class="bar"></span>';
     return el;
   }
@@ -68,13 +73,36 @@
     document.body.appendChild(modal);
   }
 
+  // Hero reel: muted looping preview streamed from Drive, only while on screen
+  function loopMuted(el, id) {
+    var src = 'https://drive.usercontent.google.com/download?id=' + id + '&export=download&confirm=t';
+    var v = null, failed = false;
+    function build() {
+      v = document.createElement('video');
+      v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true;
+      v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.preload = 'auto';
+      v.className = 'loopvid';
+      v.addEventListener('playing', function () { el.classList.add('looping'); });
+      v.addEventListener('error', function () { failed = true; if (v) { v.remove(); v = null; } el.classList.remove('looping'); });
+      v.src = src;
+      el.insertBefore(v, el.querySelector('.poster').nextSibling);
+    }
+    function play() { if (failed) return; if (!v) build(); var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    function pause() { if (v) v.pause(); }
+    if (!('IntersectionObserver' in window)) { play(); return; }
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) { e.isIntersecting ? play() : pause(); });
+    }, { rootMargin: '0px', threshold: 0.1 }).observe(el);
+  }
+
   // Google Drive: thumbnail as poster, click opens Drive's embedded player
-  function mountDrive(el, id, customPoster) {
+  function mountDrive(el, id, customPoster, autoplay) {
     var thumb = customPoster || 'https://drive.google.com/thumbnail?id=' + id + '&sz=w800';
     var img = new Image();
     img.className = 'poster'; img.alt = ''; img.loading = 'lazy'; img.referrerPolicy = 'no-referrer'; img.src = thumb;
     el.insertBefore(img, el.firstChild);
     if (el.classList.contains('mini')) return;     // too small for a player
+    if (autoplay) loopMuted(el, id);
     var frame = null;
     function close(e) {
       if (e) e.stopPropagation();
@@ -102,41 +130,105 @@
   // Wire a poster image + (optional) <video> into any .vcard / .slot element
   function mount(el) {
     var slot = el.getAttribute('data-slot');
+    var src = VIDEOS[slot];
+    var dm = src && /drive\.google\.com\/file\/d\/([\w-]+)/.exec(src);
     var poster = POSTERS[slot] || el.getAttribute('data-poster');
-    if (/drive\.google\.com\/file\/d\//.test(VIDEOS[slot] || '')) poster = null;
+    if (src && !dm && !POSTERS[slot] && /\.(mp4|webm|mov)(\?|$)/i.test(src)) poster = src.replace(/\.(mp4|webm|mov)/i, '.jpg');
+    if (dm) poster = null;
     if (poster) {
       var img = new Image();
       img.className = 'poster'; img.alt = ''; img.loading = 'lazy'; img.src = poster;
       el.insertBefore(img, el.firstChild);
     }
-    var src = VIDEOS[slot];
     if (!src) return;
-    var dm = /drive\.google\.com\/file\/d\/([\w-]+)/.exec(src);
-    if (dm) { mountDrive(el, dm[1], POSTERS[slot]); return; }
+    if (dm) { mountDrive(el, dm[1], POSTERS[slot], el.hasAttribute('data-autoplay')); return; }
+
+    var auto = el.hasAttribute('data-autoplay');
+    var interactive = el.classList.contains('vcard');
     var v = document.createElement('video');
-    v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'metadata';
+    v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true; v.preload = 'none';
     v.setAttribute('playsinline', ''); v.setAttribute('muted', '');
     if (poster) v.poster = poster;
-    v.src = src;
+    v.className = 'loopvid';
     el.insertBefore(v, el.querySelector('.poster') ? el.querySelector('.poster').nextSibling : el.firstChild);
 
+    var loaded = false, full = false;
+    var want = auto;            // should this card be playing when it is on screen?
+    var snd = el.querySelector('.snd');
+    // autoplay cards stream a tiny silent preview (videos/hero/…); the full video loads only when sound is wanted
+    var previewSrc = auto ? src.replace(/^videos\//, 'videos/hero/') : src;
+    var saveData = !!(navigator.connection && navigator.connection.saveData);
+    function ensure() { if (!loaded) { loaded = true; v.preload = 'auto'; v.src = previewSrc; } }
+    function goFull() {
+      if (full || previewSrc === src) { full = true; return; }
+      full = true;
+      var t = v.currentTime, wasPaused = v.paused;
+      v.src = src; v.preload = 'auto'; loaded = true;
+      v.addEventListener('loadedmetadata', function once() {
+        v.removeEventListener('loadedmetadata', once);
+        try { v.currentTime = t % (v.duration || 1); } catch (e) {}
+        if (!wasPaused || want) play();
+      });
+    }
+    function play() { ensure(); var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    function setUI() {
+      el.classList.toggle('is-playing', !v.paused);
+      el.classList.toggle('sound', !v.muted);
+      if (snd) snd.setAttribute('aria-label', v.muted ? 'Turn sound on' : 'Turn sound off');
+      el.setAttribute('aria-label', v.paused ? 'Play video' : 'Pause video');
+    }
+    v.addEventListener('play', setUI);
+    v.addEventListener('pause', setUI);
+    v.addEventListener('volumechange', setUI);
+    v.addEventListener('ended', setUI);
+
     var tc = el.querySelector('.tc'), bar = el.querySelector('.bar');
-    var pinned = false;
-    function setPlaying(on) { el.classList.toggle('playing', on); }
     v.addEventListener('timeupdate', function () {
       if (tc) tc.textContent = fmt(v.currentTime) + ' / ' + fmt(v.duration);
       if (bar && v.duration) bar.style.width = (v.currentTime / v.duration * 100) + '%';
     });
-    function play() { var p = v.play(); if (p && p.catch) p.catch(function () {}); setPlaying(true); }
-    function pause() { v.pause(); setPlaying(false); }
-    if (window.matchMedia('(hover:hover)').matches) {
-      el.addEventListener('mouseenter', function () { if (!pinned) play(); });
-      el.addEventListener('mouseleave', function () { if (!pinned) pause(); });
+
+    // load only near the screen; play only while visible (and only if the user hasn't paused it)
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (e.isIntersecting) { ensure(); if (want) play(); }
+          else v.pause();
+        });
+      }, { rootMargin: '200px', threshold: 0.1 }).observe(el);
+    } else if (auto) { play(); }
+    if (saveData) want = false;
+
+    if (!interactive) return;   // small slot cards: silent loop only
+
+    function toggle() {
+      if (v.paused) {
+        want = true;
+        if (!auto) {                       // grid cards: one at a time, with sound
+          document.querySelectorAll('.vcard.is-playing:not([data-autoplay])').forEach(function (o) {
+            if (o !== el && o._pause) o._pause();
+          });
+          v.muted = false;
+        }
+        play();
+      } else {
+        want = false;
+        v.pause();
+      }
     }
-    el.addEventListener('click', function () {
-      pinned = !pinned;
-      if (pinned) { v.muted = false; play(); } else { v.muted = true; pause(); }
+    el._pause = function () { want = false; v.pause(); };
+    el.addEventListener('click', toggle);
+    el.addEventListener('keydown', function (e) {
+      if (e.target !== el) return;
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
     });
+    if (snd) snd.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (v.muted) goFull();          // swap the silent preview for the full video (with audio)
+      v.muted = !v.muted;
+      if (!v.muted && v.paused) { want = true; play(); }
+    });
+    setUI();
   }
 
   /* ---------- render ---------- */
@@ -144,6 +236,7 @@
   [0, 1].forEach(function (pass) {            // two copies for seamless marquee
     HERO.forEach(function (h, i) {
       var c = card(h);
+      c.setAttribute('data-autoplay', '');
       if (pass) c.setAttribute('aria-hidden', 'true');
       reel.appendChild(c);
     });
@@ -171,8 +264,7 @@
     d.innerHTML =
       '<div class="c c0">' + r[0] + '</div>' +
       '<div class="c c1"><img src="assets/no.svg" alt="">' + r[1] + '</div>' +
-      '<div class="c c2"><img src="assets/no.svg" alt="">' + r[2] + '</div>' +
-      '<div class="c c3"><img src="assets/yes.svg" alt="">' + r[3] + '</div>';
+      '<div class="c c3"><img src="assets/yes.svg" alt="">' + r[2] + '</div>';
     rows.appendChild(d);
   });
 
@@ -206,14 +298,24 @@
     if (!m.getAttribute('data-poster')) m.setAttribute('data-poster', minis[s]);
   });
 
+  document.querySelectorAll('.slot').forEach(function (s) { s.setAttribute('data-autoplay', ''); });
   document.querySelectorAll('.vcard, .slot').forEach(mount);
 
-  /* ---------- brief form (no backend yet) ---------- */
-  var form = $('#brief');
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var label = form.querySelectorAll('.roll span');
-    label.forEach(function (s) { s.textContent = 'Thanks — we’ll be in touch'; });
-    form.classList.add('sent');
-  });
+
+  /* ---------- menu ---------- */
+  (function () {
+    var btn = $('#menu-btn'), menu = $('#menu');
+    if (!btn || !menu) return;
+    function set(open) {
+      btn.classList.toggle('open', open);
+      menu.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      menu.setAttribute('aria-hidden', String(!open));
+    }
+    btn.addEventListener('click', function (e) { e.stopPropagation(); set(!menu.classList.contains('open')); });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a')) set(false); });
+    document.addEventListener('click', function (e) { if (!e.target.closest('#menu, #menu-btn')) set(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+  })();
 })();

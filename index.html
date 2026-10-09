@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@500&family=Host+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=7">
+<link rel="stylesheet" href="styles.css?v=21">
 </head>
 <body>
 
@@ -18,11 +18,24 @@
   <a class="logo" href="#top" aria-label="JUVNLS home"><img src="assets/logo-dark.svg" alt=""><span>JUVNLS</span></a>
   <div class="nav-actions">
     <a class="btn btn-dark btn-sm" href="#contact">
-      <span class="roll"><span>Send a brief</span><span>Send a brief</span></span>
+      <span class="roll"><span>Book a call</span><span>Book a call</span></span>
       <span class="plate plate-light"><i class="arr arr-dark"></i></span>
     </a>
-    <button class="menu-btn" aria-label="Open menu"><b></b><b></b></button>
+    <button class="menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><b></b><b></b></button>
   </div>
+  <nav class="menu" id="menu" aria-label="Main menu" aria-hidden="true">
+    <a href="#work"><em>01</em><span>Client work</span></a>
+    <a href="#why"><em>02</em><span>Why JUVNLS</span></a>
+    <a href="#faq"><em>03</em><span>FAQ</span></a>
+    <a href="#contact"><em>04</em><span>Book a call</span></a>
+    <div class="menu-foot">
+      <a class="btn btn-dark btn-block" href="#contact">
+        <span class="roll"><span>Book a call</span><span>Book a call</span></span>
+        <span class="plate plate-light"><i class="arr arr-dark"></i></span>
+      </a>
+      <a class="menu-ig" href="https://www.instagram.com/juvnls/" target="_blank" rel="noopener noreferrer">Instagram <i class="arr arr-dark"></i></a>
+    </div>
+  </nav>
 </header>
 
 <main id="top">
@@ -44,14 +57,14 @@
     </div>
     <div class="rating">
       <div class="stars"><img src="assets/star.svg" alt=""><img src="assets/star.svg" alt=""><img src="assets/star.svg" alt=""><img src="assets/star.svg" alt=""><img src="assets/star.svg" alt=""></div>
-      <span class="eyebrow">CUT WITH TASTE. BUILT WITH PURPOSE.</span>
+      <span class="eyebrow">TRUSTED BY WISPR FLOW, WORK LOUDER, BLACKBOX AI &amp; MORE</span>
     </div>
   </div>
 
   <div class="reel"><div class="reel-track" id="reel"></div></div>
 
   <div class="clients">
-    <span class="eyebrow">TRUSTED BY STUDIOS, CREATORS AND BRANDS</span>
+    <span class="eyebrow">CLIENTS WE’VE CUT FOR</span>
     <div class="logos">
       <div><img class="lg lg-wispr" src="assets/client-wispr.svg" alt="Wispr Flow"></div>
       <div><img class="lg lg-wl" src="assets/client-worklouder.svg" alt="Work Louder"></div>
@@ -81,28 +94,27 @@
 </section>
 
 <!-- WHY -->
-<section class="wrap section">
+<section class="wrap section" id="why">
   <div class="head head-split">
     <div class="head-left">
       <div class="badge badge-idx"><em>/</em> 002 <em>/</em> WHY JUVNLS</div>
-      <h2>Every second earns its place.</h2>
+      <h2>Why work with a studio.</h2>
     </div>
-    <p class="head-right">We find the line. Cut the drag. Give the story a<br>rhythm. That’s how every client edit above was made:<br>on brand, on budget and on deadline.</p>
+    <p class="head-right">We’re a studio, not a one-person edit. You get a team<br>that owns the deadline and shapes every video<br>around your audience.</p>
   </div>
 
   <div class="table frame" id="table">
     <div class="t-row t-head">
       <div class="c c0"></div>
       <div class="c c1"><span class="eyebrow">FREELANCERS</span></div>
-      <div class="c c2"><span class="eyebrow">AGENCIES</span></div>
-      <div class="c c3 top"><a class="logo logo-light" href="#top"><img src="assets/logo-light.svg" alt=""><span>THE CUT</span></a></div>
+      <div class="c c3 top"><a class="logo logo-light" href="#top"><img src="assets/logo-light.svg" alt=""><span>JUVNLS</span></a></div>
     </div>
     <div id="rows"></div>
     <div class="t-row t-foot">
-      <div class="c c0"></div><div class="c c1"></div><div class="c c2"></div>
+      <div class="c c0"></div><div class="c c1"></div>
       <div class="c c3 bottom">
         <a class="btn btn-light btn-block" href="#contact">
-          <span class="roll"><span>Send a brief</span><span>Send a brief</span></span>
+          <span class="roll"><span>Book a call</span><span>Book a call</span></span>
           <span class="plate plate-dark"><i class="arr arr-light"></i></span>
         </a>
       </div>
@@ -128,10 +140,9 @@
       </div>
       <div class="help-foot">
         <a class="btn btn-dark btn-block" href="#contact">
-          <span class="roll"><span>Send a brief</span><span>Send a brief</span></span>
+          <span class="roll"><span>Book a call</span><span>Book a call</span></span>
           <span class="plate plate-light"><i class="arr arr-dark"></i></span>
         </a>
-        <div class="mail-row"><span class="mail-l">CONTACT</span><span class="eyebrow mono">CONTACT DETAILS PENDING</span></div>
       </div>
     </aside>
   </div>
@@ -143,31 +154,20 @@
     <div class="contact-l">
       <div class="badge badge-live"><i class="dot"></i>WORK WITH US</div>
       <h2>Got footage?<br>Make it move.</h2>
-      <p class="sub">Tell us who’s speaking, what needs to land and when it goes live. We’ll reply with how we’d cut it.</p>
+      <p class="sub">Pick a time that suits you. Tell us who’s speaking, what needs to land and when it goes live, and we’ll show you how we’d cut it.</p>
       <div class="mini-cards">
         <div class="mini slot" data-slot="contact-story"><span>STORY</span></div>
         <div class="mini mini-up slot" data-slot="contact-pace"><span>PACE</span></div>
         <div class="mini slot" data-slot="contact-motion"><span>MOTION</span></div>
       </div>
     </div>
-    <form class="form" id="brief" novalidate>
-      <div class="f-row">
-        <label><span class="lab">YOUR NAME</span><input type="text" name="name" placeholder="Your name"></label>
-        <label><span class="lab">WORK EMAIL</span><input type="email" name="email" placeholder="you@example.com"></label>
+    <div class="cal-wrap">
+      <div class="cal" id="book">
+        <iframe title="Book a call with JUVNLS" loading="lazy"
+          src="https://calendly.com/webofayush7/new-meeting?hide_gdpr_banner=1&background_color=e5e5e5&text_color=121212&primary_color=121212"></iframe>
       </div>
-      <div class="f-row">
-        <label><span class="lab">STUDIO OR TEAM</span><input type="text" name="team" placeholder="Studio or team"></label>
-        <label><span class="lab">WHAT ARE YOU MAKING?</span>
-          <span class="select"><select name="kind"><option>One piece</option><option>A series</option><option>Ongoing retainer</option></select></span>
-        </label>
-      </div>
-      <label class="f-full"><span class="lab">THE BRIEF <em>OPTIONAL</em></span><textarea name="brief" placeholder="Tell us about the brief"></textarea></label>
-      <button class="btn btn-dark btn-block" type="submit">
-        <span class="roll"><span>Send the brief</span><span>Send the brief</span></span>
-        <span class="plate plate-light"><i class="arr arr-dark"></i></span>
-      </button>
-      <p class="note eyebrow mono">WE’LL READ IT WITH CARE.</p>
-    </form>
+      <p class="cal-note">Prefer email? Write to <a href="mailto:hello@ayushbairagi.com">hello@ayushbairagi.com</a></p>
+    </div>
   </div>
 </section>
 
@@ -181,37 +181,32 @@
       <h3>Talking heads with taste.</h3>
       <p>A creative studio for short-<br>form work with a point of view.</p>
       <div class="socials">
-        <a href="#" aria-label="X"><img src="assets/glyph-1.svg" alt=""></a>
-        <a href="#" aria-label="Instagram"><img src="assets/glyph-2.svg" alt=""></a>
-        <a href="#" aria-label="Social"><img src="assets/glyph-3.svg" alt=""></a>
-        <a href="#" aria-label="Social"><img src="assets/glyph-4.svg" alt=""></a>
+        <a href="https://www.instagram.com/juvnls/" target="_blank" rel="noopener noreferrer" aria-label="JUVNLS on Instagram"><img src="assets/glyph-2.svg" alt=""></a>
       </div>
     </div>
     <nav class="foot-col"><h4>Navigation</h4>
-      <a href="#work">Client work</a><a href="#faq">FAQ</a><a href="#contact">Start a project</a>
+      <a href="#work">Client work</a><a href="#why">Why JUVNLS</a><a href="#faq">FAQ</a><a href="#contact">Book a call</a>
     </nav>
-    <nav class="foot-col"><h4>Company</h4>
-      <a href="#">About</a><a href="#">Reviews</a><a href="#contact">Contact</a>
+    <nav class="foot-col"><h4>Contact</h4>
+      <a href="mailto:hello@ayushbairagi.com">hello@ayushbairagi.com</a>
+      <a href="https://www.instagram.com/juvnls/" target="_blank" rel="noopener noreferrer">Instagram</a>
     </nav>
     <div class="foot-card">
       <h3>Got a brief? Let’s talk.</h3>
       <p>Tell us the story, the audience and the deadline.</p>
-      <div class="email-pill"><span>CONTACT DETAILS PENDING</span><em class="eyebrow mono">Email</em></div>
       <a class="btn btn-dark btn-block" href="#contact">
-        <span class="roll"><span>Send a brief</span><span>Send a brief</span></span>
+        <span class="roll"><span>Book a call</span><span>Book a call</span></span>
         <span class="plate plate-light"><i class="arr arr-dark"></i></span>
       </a>
     </div>
   </div>
   <div class="bottom-bar">
     <span>© 2026 JUVNLS. All rights reserved.</span>
-    <a href="#">Privacy Policy</a>
-    <a href="#">Terms of Service</a>
-    <span>Designed By <b>Marso</b></span>
+    <a href="#top">Back to top ↑</a>
   </div>
 </footer>
 
-<script src="videos.js?v=3"></script>
-<script src="main.js?v=3"></script>
+<script src="videos.js?v=21"></script>
+<script src="main.js?v=21"></script>
 </body>
 </html>
