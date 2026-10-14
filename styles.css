@@ -380,3 +380,9 @@ html{scroll-padding-top:84px}
 .cal-note a{color:var(--ink);font-weight:500;border-bottom:1px solid var(--dash);transition:border-color .2s}
 .cal-note a:hover{border-color:var(--ink)}
 .bottom-bar a:first-of-type{margin-left:auto}
+
+/* JUVNLS wordmark badge */
+.logo img{width:auto;height:34px}
+.nav .logo img{height:32px}
+.t-head .c3 .logo img{width:auto;height:34px}
+.foot-brand .logo img{height:44px}
